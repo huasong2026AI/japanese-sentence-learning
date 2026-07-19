@@ -20,7 +20,17 @@ export interface Sentence {
   createdAt: number;
 }
 
+export interface Passage {
+  id: string;
+  title: string;       // user-editable title
+  japanese: string;    // full Japanese passage text
+  chinese: string;     // Chinese translation (AI generated)
+  source?: string;     // optional source note (e.g. "JLPT N3 reading passage")
+  createdAt: number;
+}
+
 const SENTENCES_KEY = 'jp_learning_sentences';
+const PASSAGES_KEY  = 'jp_learning_passages';
 const API_KEY_KEY = 'jp_learning_api_key';
 const MODEL_KEY = 'jp_learning_model';
 
@@ -142,5 +152,44 @@ export const db = {
 
   setModel(model: string): void {
     localStorage.setItem(MODEL_KEY, model);
+  },
+
+  // --- Passages (范文) CRUD ---
+  getPassages(): Passage[] {
+    try {
+      const data = localStorage.getItem(PASSAGES_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch { return []; }
+  },
+
+  savePassages(passages: Passage[]): void {
+    try {
+      localStorage.setItem(PASSAGES_KEY, JSON.stringify(passages));
+    } catch {}
+  },
+
+  addPassage(passage: Omit<Passage, 'id' | 'createdAt'>): Passage {
+    const passages = this.getPassages();
+    const newPassage: Passage = {
+      ...passage,
+      id: generateId(),
+      createdAt: Date.now(),
+    };
+    passages.unshift(newPassage);
+    this.savePassages(passages);
+    return newPassage;
+  },
+
+  updatePassage(id: string, updatedFields: Partial<Omit<Passage, 'id' | 'createdAt'>>): void {
+    const passages = this.getPassages();
+    const idx = passages.findIndex(p => p.id === id);
+    if (idx !== -1) {
+      passages[idx] = { ...passages[idx], ...updatedFields };
+      this.savePassages(passages);
+    }
+  },
+
+  deletePassage(id: string): void {
+    this.savePassages(this.getPassages().filter(p => p.id !== id));
   },
 };

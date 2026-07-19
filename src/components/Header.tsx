@@ -4,10 +4,13 @@ import { BookOpen, Settings } from 'lucide-react';
 interface HeaderProps {
   onOpenSettings: () => void;
   sentenceCount: number;
+  passageCount: number;
   hasApiKey: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenSettings, sentenceCount, hasApiKey }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onOpenSettings, sentenceCount, passageCount, hasApiKey,
+}) => {
   return (
     <header className="sticky top-0 z-40 w-full glass shadow-sm px-4 py-3 md:px-6 flex items-center justify-between">
       <div className="flex items-center space-x-3">
@@ -15,18 +18,24 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSettings, sentenceCount, h
           <BookOpen className="h-5 w-5 md:h-6 md:w-6" />
         </div>
         <div>
-          <h1 className="text-lg md:text-xl font-bold text-japanese-charcoal tracking-wide flex items-center">
+          <h1 className="text-lg md:text-xl font-bold text-japanese-charcoal tracking-wide">
             日本語例句学习
           </h1>
           <p className="text-xs text-gray-500">
-            拍照识别 · 语法精讲 · 朗读评测
+            拍照识别 · 语法精讲 · 范文朗读
           </p>
         </div>
       </div>
 
       <div className="flex items-center space-x-3">
-        <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-japanese-sakura bg-opacity-20 text-japanese-red">
-          已保存: {sentenceCount} 句
+        <span className="hidden sm:inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold bg-japanese-sakura bg-opacity-20 text-japanese-red">
+          <span>{sentenceCount} 句</span>
+          {passageCount > 0 && (
+            <>
+              <span className="opacity-40">|</span>
+              <span className="text-japanese-blue">{passageCount} 篇</span>
+            </>
+          )}
         </span>
         <button
           onClick={onOpenSettings}
@@ -37,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSettings, sentenceCount, h
           }`}
         >
           <Settings className="h-4 w-4" />
-          <span className="hidden xs:inline">{hasApiKey ? '设置' : '配置 API Key'}</span>
+          <span className="hidden xs:inline">{hasApiKey ? '设置 / 模型' : '配置 API Key'}</span>
         </button>
       </div>
     </header>

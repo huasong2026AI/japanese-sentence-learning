@@ -15,12 +15,31 @@ export const GeminiConfigModal: React.FC<GeminiConfigModalProps> = ({ isOpen, on
   const [isSavedSuccessfully, setIsSavedSuccessfully] = useState(false);
 
   const MODELS = [
-    { id: 'gemini-3.1-flash-lite', label: 'Gemini 3.1 Flash Lite',  desc: '✅ 可用 · 最新轻量版，额度宽裕（默认推荐）' },
-    { id: 'gemini-2.0-flash',      label: 'Gemini 2 Flash',         desc: '✅ 可用 · 速度快，额度充足' },
-    { id: 'gemini-2.0-flash-lite', label: 'Gemini 2 Flash Lite',    desc: '✅ 可用 · 最轻量，响应最快' },
-    { id: 'gemini-2.5-flash-lite', label: 'Gemini 2.5 Flash Lite',  desc: '✅ 可用 · 2.5 轻量版，额度较多' },
-    { id: 'gemini-2.5-flash',      label: 'Gemini 2.5 Flash',       desc: '🔴 每日限额已超（当前超限，不推荐）' },
-    { id: 'gemini-2.5-pro',        label: 'Gemini 2.5 Pro',         desc: '⚠️ 最强模型，每日额度有限' },
+    {
+      id: 'gemini-3.1-flash-lite',
+      label: 'Gemini 3.1 Flash Lite',
+      desc: '⭐ 默认推荐 · 最新轻量版，识别准确，额度充裕',
+    },
+    {
+      id: 'gemini-3.0-flash',
+      label: 'Gemini 3 Flash',
+      desc: '✅ 旗舰快速版 · 日语理解能力更强',
+    },
+    {
+      id: 'gemini-2.5-flash-lite',
+      label: 'Gemini 2.5 Flash Lite',
+      desc: '✅ 轻量稳定版 · 响应最快，适合频繁使用',
+    },
+    {
+      id: 'gemini-2.5-flash',
+      label: 'Gemini 2.5 Flash',
+      desc: '🔵 上一代旗舰 · 语法解析细致',
+    },
+    {
+      id: 'gemini-2.5-pro',
+      label: 'Gemini 2.5 Pro',
+      desc: '🧠 最强推理模型 · 适合复杂语法讲解，每日额度有限',
+    },
   ];
 
   useEffect(() => {
