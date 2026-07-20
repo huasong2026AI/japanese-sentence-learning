@@ -64,8 +64,8 @@ export const GeminiConfigModal: React.FC<GeminiConfigModalProps> = ({ isOpen, on
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-40 backdrop-blur-sm transition-opacity">
-      <div className="relative w-full max-w-md bg-japanese-cream rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all duration-300 animate-slide-up">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 pt-6 sm:pt-4 bg-black bg-opacity-40 backdrop-blur-sm transition-opacity overflow-y-auto">
+      <div className="relative w-full max-w-md bg-japanese-cream rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all duration-300 animate-slide-up my-auto">
         
         {/* Header */}
         <div className="p-6 pb-4 flex items-center justify-between border-b border-slate-100">
